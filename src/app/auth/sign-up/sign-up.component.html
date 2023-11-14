@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <div class="row justify-content-center align-item-center "style="height: 100vh;">
+        <div class="d-none d-md-block col-md-6 col-lg-6 col-xl-6 back-img">
+        </div>
+        <div #registerForm class="col-sm-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="d-flex justify-content-center">
+                <p-card>
+                    <h4>Sign up to EXPENSE TRACKER</h4> 
+                    <p-divider></p-divider>
+                    <div class="d-flex justify-content-center align-items-center">
+                         <button (click)="loginWithGoogle()" pButton pRipple type="button" icon="pi pi-google" class="p-button-rounded"></button>
+                         <button pButton pRipple type="button" icon="pi pi-facebook" class="p-button-rounded ms-2"></button>
+                    </div>
+                    <p-divider align="center"><b>OR</b></p-divider>
+                   <div class="row">
+                    <div #firstname class="col">
+                        <h6>FirstName</h6>
+                        <input type="text" pInputText style="width: 100%;"/>
+                   </div>
+                   <div #lastname class="col">
+                    <h6>LastName</h6>
+                    <input type="text" pInputText style="width: 100%;"/>
+                </div>
+                   </div>
+                    <div #email class="pt-2">
+                         <h6>E-mail</h6>
+                         <input type="text" pInputText style="width: 100%;"/>
+                    </div>
+                    <div #password class="row pt-2">
+                        <div class="col">
+                            <h6>Password</h6>
+                        </div>
+                         <p-password [toggleMask]="true" [inputStyle]="{'width':'100%'}" [style]="{'width':'100%'}" styelClass="p-input-icon-right"></p-password>
+                         <div class="col">
+                            <h6>Confirm Password</h6>
+                        </div>
+                         <p-password [toggleMask]="true" [inputStyle]="{'width':'100%'}" [style]="{'width':'100%'}" styelClass="p-input-icon-right"></p-password>
+                       </div>      
+                    <div class="pt-2 d-flex justify-content-center">
+                         <p-button label="Register" styleClass="p-button-rounded"></p-button>
+                    </div>
+                    <div class="pt-2 d-flex align-items-center">
+                         Already a Member?&nbsp;<p-button label="Click here" routerLink="/sign-in" styleClass="p-button-link p-0"></p-button>&nbsp;to Login
+                    </div>
+                </p-card>
+            </div>
+        </div>  
+    </div>
+</div>
+

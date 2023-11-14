@@ -26,6 +26,13 @@ import { ToolbarModule } from 'primeng/toolbar';
 import { HomeComponent } from './home/home.component';
 import { AvatarModule } from 'primeng/avatar';
 import { AvatarGroupModule } from 'primeng/avatargroup';
+import { MenuModule } from 'primeng/menu';
+import { MenubarModule } from 'primeng/menubar';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { FormsModule } from '@angular/forms';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { CalendarModule } from 'primeng/calendar';
+
 
 @NgModule({
   declarations: [
@@ -59,7 +66,13 @@ import { AvatarGroupModule } from 'primeng/avatargroup';
     CheckboxModule,
     ToolbarModule,
     AvatarModule,
-    AvatarGroupModule
+    AvatarGroupModule,
+    MenuModule,
+    MenubarModule,
+    SelectButtonModule,
+    FormsModule,
+    InputTextareaModule,
+    CalendarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -17,6 +17,10 @@
                         <div class="alert alert-warning" *ngIf="status.errors.password">
                             Please check passwords !
                         </div>
+
+                        <div class="alert alert-warning" *ngIf="status.errors.valid">
+                            Please fill well the form !
+                        </div>
                        <div class="row">
                         <div #firstname class="col">
                             <h6>FirstName</h6>
@@ -29,7 +33,7 @@
                        </div>
                         <div #email class="pt-2">
                              <h6>E-mail</h6>
-                             <input type="email" name="email" ngModel pInputText style="width: 100%;"/>
+                             <input type="email" name="email" ngModel pInputText style="width: 100%;" required/>
                         </div>
                         <div #password class="row pt-2">
                             <div class="col">

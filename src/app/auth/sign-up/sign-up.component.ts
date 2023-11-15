@@ -12,7 +12,8 @@ export class SignUpComponent {
   password2: any;
   status = {
     errors: {
-      password: false
+      password: false,
+      valid: false
     }
   };
   constructor(private authService: AuthService,private router: Router){}
@@ -44,13 +45,22 @@ export class SignUpComponent {
     console.log(f.valid);
     
     this.status.errors.password = false;
-    if (f.value.password !== f.value.password2) {
-      this.status.errors.password = true;
+    this.status.errors.valid = false;
+
+
+    if (f.valid) {
+      if (f.value.password !== f.value.password2) {
+        this.status.errors.password = true;
+      } else {
+  
+        this.authService.register(f.value);
+  
+        this.router.navigateByUrl("/");
+      }
     } else {
+      this.status.errors.valid = true;
 
-      this.authService.register(f.value);
-
-      this.router.navigateByUrl("/");
     }
+    
   }
 }

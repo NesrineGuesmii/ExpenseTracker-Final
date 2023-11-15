@@ -3,3 +3,12 @@
     background-size: cover;
     height: 100vh;
 }
+
+.border {
+    border: solid red;
+}
+
+.center {
+    transform: translateX(50%);
+    margin-top: 1.5rem;
+}

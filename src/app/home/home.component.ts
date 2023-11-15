@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuItem, MessageService } from 'primeng/api';
 import { category } from '../datas/Category';
 import { Chart, registerables } from 'chart.js';
+import { AuthService } from '../shared/service/auth.service';
 
 Chart.register(...registerables);
 
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit{
   
   
 
-  constructor(private messageService: MessageService) {}
+  constructor(private messageService: MessageService, private authService: AuthService) {}
     
     ngOnInit() {
 
@@ -90,6 +91,7 @@ export class HomeComponent implements OnInit{
     }
 
     delete() {
+        this.authService.logout();
         this.messageService.add({ severity: 'warn', summary: 'Delete', detail: 'Data Deleted' });
     }
 

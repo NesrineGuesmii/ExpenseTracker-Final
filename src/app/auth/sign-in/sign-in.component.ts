@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/service/auth.service';
 
@@ -15,6 +15,9 @@ export class SignInComponent implements OnInit{
     password: new FormControl('', Validators.required)
   })
 
+  status = {
+    error: false
+  };
   constructor(private authService: AuthService,private router: Router){}
 
   ngOnInit(): void {
@@ -35,5 +38,21 @@ export class SignInComponent implements OnInit{
     }).catch((error: any) =>[
       console.error(error)
     ]);
+  }
+
+
+  onSubmit(f: NgForm) {
+    console.log(f.value);
+    this.status.error = false;
+
+    const res = this.authService.login(f.value);
+    console.log(res);
+
+    if (res) {
+      this.router.navigateByUrl("/home");
+    } else {
+      this.status.error = true;
+    }
+    
   }
 }

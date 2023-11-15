@@ -32,6 +32,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
 import { FormsModule } from '@angular/forms';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CalendarModule } from 'primeng/calendar';
+import { DropdownModule } from 'primeng/dropdown';
+import { DataTablesModule } from "angular-datatables";
 
 
 @NgModule({
@@ -72,7 +74,9 @@ import { CalendarModule } from 'primeng/calendar';
     SelectButtonModule,
     FormsModule,
     InputTextareaModule,
-    CalendarModule
+    CalendarModule,
+    DropdownModule,
+    DataTablesModule
   ],
   providers: [],
   bootstrap: [AppComponent]

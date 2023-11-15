@@ -21,15 +21,29 @@
                 <h6 class="ps-4 pt-4">Add/Update</h6>
                 <p-divider></p-divider>
                 <div class="d-flex flex-column align-items-center">
-                    <p-selectButton [options]="stateOptions" [(ngModel)]="value" class="p-2" optionLabel="label" optionValue="value"></p-selectButton>
-                    <span class="p-input-icon-left px-4 py-2 w-100">
+                    <p-selectButton [options]="stateOptions" [(ngModel)]="value" class="p-2" optionLabel="label" optionValue="value" (click)="changeCategoryStatus()"></p-selectButton>
+                    <!-- <span class="p-input-icon-left px-4 py-2 w-100">
                         <i class="pi pi-th-large ps-4"></i>
-                        <input type="text" pInputText placeholder="Category" class="w-100"/>
+                        <input type="text" pInputText placeholder="Category" class="w-100"/>                        
+                    </span> -->
+                    <div class="container p-2">
+                        <label class="mb-1 ml-4" for="">
+                            Select Category
+                        </label>
+                        <select class="form-select pr-3 my-drop" name="category" [(ngModel)]="data.category" aria-label="Default select example">
+                            <option *ngFor="let c of categorySelected" [value]="c">{{ c | titlecase }}</option>
+                        </select>
+                    </div>
+
+                    <span class="p-input-icon-left px-4 py-2 w-100">
+                        <label class="mb-1 ml-4" for="">
+                            Enter an amount
+                        </label>
+                        <input type="number" name="money" [(ngModel)]="data.money" class="form-control" id="exampleFormControlInput1" placeholder="Ex: 100">
                     </span>
-                    
                     <span class="p-input-icon-left px-4 py-2 w-100">
                         <i class="pi pi-file-edit ps-4"></i>
-                        <textarea id="float-input" rows="2" pInputTextarea class="w-100"></textarea>
+                        <textarea id="float-input" rows="2" name="description" [(ngModel)]="data.description" pInputTextarea class="w-100"></textarea>
                     </span>
 
                     <span class="p-input-icon-left px-4 py-2 w-100">
@@ -37,8 +51,8 @@
                         <p-calendar inputId="basic" dateFormat="mm-dd-yy" [(ngModel)]="date" class="w-100"></p-calendar>
                     </span>
                     <div class="d-flex justify-content-center p-4">
-                        <p-button label="Add" icon="pi pi-plus" iconPos="right" styleClass="p-button-rounded me-2"></p-button>
-                        <p-button label="Clear" icon="pi pi-trash" iconPos="right" styleClass="p-button-rounded" class="clear"></p-button>
+                        <p-button label="Add" icon="pi pi-plus" iconPos="right" styleClass="p-button-rounded me-2" (click)="add()"></p-button>
+                        <p-button label="Clear" icon="pi pi-trash" iconPos="right" styleClass="p-button-rounded" class="clear" (click)="clear()"></p-button>
                     </div>
                 </div>
             </div>
@@ -49,7 +63,7 @@
                 <p-card header="Total Balance">
                    <ng-template pTemplate="header">
                    </ng-template> 
-                   <h6 class="text-center">Total: 5000$</h6>
+                   <h6 class="text-center">Total: {{ total.income | currency }}</h6>
                    <ng-template pTemplate="footer">
                         <div class="d-flex justify-content-between">
                             <div class="row">
@@ -60,7 +74,7 @@
                                     <h6>Income</h6>
                                     <span>
                                         <h4>
-                                            4000$                                       
+                                            {{ total.income | currency }}                                      
                                         </h4>
                                     </span>
                                 </div>
@@ -74,7 +88,7 @@
                                         <h6>Expense</h6>
                                         <span>
                                             <h4>
-                                                4000$                                       
+                                                {{ total.expense | currency }}                                      
                                             </h4>
                                         </span>
                                     </div>
@@ -86,8 +100,91 @@
                   </ng-template>  
                 </p-card>    
             </div>
+            <div class="col">
+                <div class="row">
+                    <div class="col-md-6">
+
+                        <div class="card bg-success text-light mt-5">
+                            <div class="card-body">
+                                <p class="text-light text-center mt-5" *ngIf="incomes.length === 0">
+                                    No income !
+                                </p>
+                                <table datatable  [dtOptions]="dtOptions" class="row-border hover" *ngIf="incomes.length !== 0">
+                                    <thead>
+                                      <tr>
+                                        <th>Date</th>
+                                        <th>Income</th>
+                                        <th>Category</th>
+                                        <th>Comment</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let i of incomes">
+                                        <td>{{ i.created_at | date }}</td>
+                                        <td>{{ i.money | currency}}</td>
+                                        <td>{{ i.category | titlecase }}</td>
+                                        <td>{{ i.description }}</td>
+                                      </tr>                             
+                                    </tbody>
+                                </table> 
+                            </div>
+                        </div>
+                                     
+                    </div>
+                    <div class="col-md-6">
+
+                        <div class="card bg-danger text-light mt-5">
+                            <div class="card-body">
+                              
+                                <p class="text-light text-center mt-5" *ngIf="expenses.length === 0">
+                                    No expense !
+                                </p>
+                                <table datatable class="row-border hover" *ngIf="expenses.length !== 0">
+                                    <thead>
+                                      <tr>
+                                        <th>Date</th>
+                                        <th>Income</th>
+                                        <th>Category</th>
+                                        <th>Comment</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr *ngFor="let i of expenses">
+                                        <td>{{ i.created_at | date }}</td>
+                                        <td>{{ i.money | currency}}</td>
+                                        <td>{{ i.category | titlecase }}</td>
+                                        <td>{{ i.description }}</td>
+                                      </tr>                             
+                                    </tbody>
+                                  </table> 
+
+                            </div>
+                        </div>                        
+                          
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-4">
+                        <div class="container p-3">
+                            <div class="card">
+                                <div class="card-body chart-container">
+                                    <canvas id="money-data" #moneydata style="width: 100%;height: 100%;"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+
 
     <p-toolbar styleClass="p-1 fixed-bottom">
 
